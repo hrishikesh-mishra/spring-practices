@@ -1,5 +1,7 @@
 package com.hrishikeshmishra.springpractice.ch2;
 
+import com.hrishikeshmishra.springpractice.ch2.sequence.PrefixGenerator;
+
 /**
  * Created by hrishikesh.mishra
  */
@@ -10,7 +12,18 @@ public class SequenceGenerator {
     private int initial;
     private int counter;
 
+    private PrefixGenerator prefixGenerator;
+
     public SequenceGenerator() {
+    }
+
+    public SequenceGenerator(String prefix, String suffix) {
+        this.prefix = prefix;
+        this.suffix = suffix;
+    }
+    public SequenceGenerator(String prefix, int initial) {
+        this.prefix = prefix;
+        this.initial = initial;
     }
 
     public SequenceGenerator(String prefix, String suffix, int initial) {
@@ -31,9 +44,13 @@ public class SequenceGenerator {
         this.initial = initial;
     }
 
+    public void setPrefixGenerator(PrefixGenerator prefixGenerator) {
+        this.prefixGenerator = prefixGenerator;
+    }
+
     public synchronized String getSequence() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append(prefix);
+        buffer.append(prefixGenerator.getPrefix());
         buffer.append(initial + counter++);
         buffer.append(suffix);
         return buffer.toString();
